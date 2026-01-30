@@ -1,50 +1,60 @@
 # LangGraph Researcher 2026
 
-[Leia em Português](README.pt-br.md)
+[Read in English](README.en.md)
 
-Repo for the LangGraph Researcher agent, equipped with ADK tools.
+Repositório para o agente LangGraph Researcher, equipado com ferramentas ADK.
 
-## ADK Skills Included
+## Habilidades ADK Incluídas
 
-### 1. Git Commit Formatter (`git.py`)
-Ensures version history is consistent and readable by enforcing **Conventional Commits**.
-- **Usage**: Invoke with parameters `type` (feat, fix, etc.), `scope`, `subject`, and optional `body`.
-- **Output**: Returns a formatted string like `feat(auth): add login endpoint`.
+Este agente está equipado com um "Agent Development Kit" (ADK) que lhe confere habilidades especializadas. Estas habilidades são ferramentas Python que o agente pode chamar para realizar tarefas complexas.
 
-### 2. License Header Adder (`compliance.py`)
-Automates legal compliance by checking and adding license headers to source files.
-- **Usage**: Provide a `file_path`.
-- **Behavior**: Checks if the file exists and if it already has the standard copyright header. If missing, prepends the 2026 LangGraph Researcher MIT license header.
+### 1. Formatador de Commit Git (`git.py`)
+Garante que o histórico de versões seja consistente e legível ao impor **Conventional Commits**.
+- **O que faz**: Formata mensagens de commit seguindo o padrão `tipo(escopo): descrição`.
+- **Exemplo de uso pelo agente**: Quando você pede "crie uma mensagem de commit para a nova função de login", o agente chama esta skill para gerar a string formatada correta.
 
-### 3. JSON to Pydantic (`codegen.py`)
-Accelerates development by generating typed Pydantic models from raw JSON verification.
-- **Usage**: Provide `json_input` (string or dict) and a `model_name`.
-- **Tech**: Uses `datamodel-code-generator` under the hood.
-- **Output**: Returns valid Python code defining the Pydantic models matching the input structure.
+### 2. Adicionador de Cabeçalho de Licença (`compliance.py`)
+Automatiza a conformidade legal verificando e adicionando cabeçalhos de licença aos arquivos fonte.
+- **O que faz**: Insere o cabeçalho de licença MIT no topo dos arquivos se ele ainda não existir.
+- **Exemplo de uso pelo agente**: Se você pedir "verifique as licenças dos arquivos", o agente varre os arquivos e usa esta skill para aplicar o cabeçalho onde estiver faltando.
 
-### 4. Database Schema Validator (`data.py`)
-Strengthens data governance by validating schema definitions against best practices.
-- **Usage**: Provide a `schema_definition` dict (with table name and columns).
-- **Checks**:
-    - **Primary Key**: Ensures the table has a primary key defined.
-    - **Naming Convention**: Validates that column names are in `snake_case`.
-- **Output**: A pass/fail report listing any violations found.
+### 3. JSON para Pydantic (`codegen.py`)
+Acelera o desenvolvimento gerando modelos Pydantic tipados a partir de JSON bruto.
+- **O que faz**: Converte um objeto JSON em classes Python Pydantic.
+- **Exemplo de uso pelo agente**: Ao receber um JSON de uma API e pedir "crie o modelo de dados para isso", o agente usa esta skill para gerar o código Python correspondente.
 
-## How to Run
+### 4. Validador de Schema de Banco de Dados (`data.py`)
+Fortalece a governança de dados validando definições de esquema contra melhores práticas.
+- **O que faz**: Verifica se tabelas têm chaves primárias e se colunas seguem a convenção `snake_case`.
+- **Exemplo de uso pelo agente**: Ao projetar um banco de dados, o agente pode usar esta skill para garantir que o esquema proposto segue as boas práticas antes de gerar o SQL.
 
-1. Open terminal in `Langgraph_researcher_2026`.
-2. Activate venv: `.\.venv\Scripts\activate` (Windows) or `source .venv/bin/activate` (Linux/Mac)
-3. Run: `langgraph dev --allow-blocking`
+## Como as Skills Funcionam no LangGraph
 
-## Prerequisites
+Quando você executa o comando `langgraph dev` (ou `langgraph dev --allow-blocking`), o agente é carregado no **LangGraph Studio**, uma interface visual no seu navegador.
 
-- Python 3.10 or higher
-- Google Generative AI API Key
-- Tavily API Key
+1.  **Interface de Chat**: No LangGraph Studio, você interage com o agente através de um chat.
+2.  **Detecção de Intenção**: Quando você faz um pedido (ex: "formate este commit"), o modelo de IA (Gemini) analisa se precisa usar alguma ferramenta para atender ao pedido.
+3.  **Execução da Skill**: Se necessário, o agente "chama" a função Python correspondente (a skill) nos bastidores.
+4.  **Resposta**: O resultado da skill (ex: a mensagem formatada ou o código gerado) é devolvido ao agente, que então formula a resposta final para você no chat.
 
-## Recommendations
+**Resumo do Fluxo:**
+`Usuário (Chat) -> Agente (Decisão) -> Skill (Execução Python) -> Agente (Resposta)`
 
-Create and activate a virtual environment before installing the dependencies:
+## Como Executar
+
+1. Abra o terminal em `Langgraph_researcher_2026`.
+2. Ative o venv: `.\.venv\Scripts\activate` (Windows) ou `source .venv/bin/activate` (Linux/Mac)
+3. Execute: `langgraph dev --allow-blocking`
+
+## Requisitos
+
+- Python 3.10 ou superior
+- Chave de API do Google Generative AI
+- Chave de API do Tavily
+
+## Recomendações
+
+Crie e ative um ambiente virtual antes de instalar as dependências:
 
 ```bash
 python3.12 -m venv .venv
@@ -52,9 +62,9 @@ source .venv/bin/activate # Linux/macOS
 # .\.venv\Scripts\activate # Windows
 ```
 
-## Installation
+## Instalação
 
-Enter the virtual environment and run: 
+Entre no ambiente virtual e execute: 
 
 ```bash
 source .venv/bin/activate # Linux/macOS
@@ -65,36 +75,36 @@ source .venv/bin/activate # Linux/macOS
 pip install -r requirements.txt
 ```
 
-## Configuration
+## Configuração
 
-In the project root, create a `.env` file with the keys:
+Na raiz do projeto, crie o arquivo `.env` com as chaves:
 
 ```dotenv
-GOOGLE_API_KEY=your_api_key
-TAVILY_API_KEY=your_tavily_key
+GOOGLE_API_KEY=sua_chave_api
+TAVILY_API_KEY=sua_chave_tavily
 ```
 
-## Usage
+## Uso
 
-In the terminal, execute:
+No terminal, execute:
 
 ```bash
 langgraph dev
 ```
 
-The script:
+O script:
 
-- Uses `dotenv` to load environment variables
-- Initializes the `gemini-2.5-flash` model
-- Defines the `search_web` tool with Tavily
-- Creates a ReAct agent via `create_react_agent`
+- Usa `dotenv` para carregar variáveis de ambiente
+- Inicializa o modelo `gemini-2.5-flash`
+- Define a ferramenta `search_web` e as **Skills ADK**
+- Cria um agente ReAct via `create_react_agent`
 
-## Attention / Troubleshooting
+## Atenção / Solução de Problemas
 
-Some users reported issues when using Windows.
-The issue is usually resolved by running the command:
+Alguns usuários relataram problemas ao usar no Windows.
+O problema geralmente é resolvido através do comando:
 ```bash
 langgraph dev --allow-blocking
 ```
 
-Remember that upon execution, the agent (LangGraph Studio) will be displayed in your default browser.
+Lembre-se que ao executar, o agente (LangGraph Studio) será exibido em seu navegador padrão.

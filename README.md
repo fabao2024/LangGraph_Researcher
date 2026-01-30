@@ -1,5 +1,7 @@
 # LangGraph Researcher 2026
 
+[Leia em Português](README.pt-br.md)
+
 Repo for the LangGraph Researcher agent, equipped with ADK tools.
 
 ## ADK Skills Included
@@ -31,30 +33,28 @@ Strengthens data governance by validating schema definitions against best practi
 ## How to Run
 
 1. Open terminal in `Langgraph_researcher_2026`.
-2. Activate venv: `.\.venv\Scripts\activate`
+2. Activate venv: `.\.venv\Scripts\activate` (Windows) or `source .venv/bin/activate` (Linux/Mac)
 3. Run: `langgraph dev --allow-blocking`
 
+## Prerequisites
 
-## Requisitos
-
-- Python 3.10 ou superior
+- Python 3.10 or higher
 - Google Generative AI API Key
 - Tavily API Key
 
-## Recomendações
+## Recommendations
 
-Crie e ative um ambiente virtual antes de instalar as dependências:
+Create and activate a virtual environment before installing the dependencies:
 
-No vídeo
 ```bash
 python3.12 -m venv .venv
 source .venv/bin/activate # Linux/macOS
 # .\.venv\Scripts\activate # Windows
 ```
 
-## Instalação
+## Installation
 
-Entre no ambiente virtual e execute: 
+Enter the virtual environment and run: 
 
 ```bash
 source .venv/bin/activate # Linux/macOS
@@ -65,36 +65,36 @@ source .venv/bin/activate # Linux/macOS
 pip install -r requirements.txt
 ```
 
-## Configuração
+## Configuration
 
-Na raiz do projeto, crie o arquivo `.env` com as chaves:
+In the project root, create a `.env` file with the keys:
 
 ```dotenv
-GOOGLE_API_KEY=sua_chave_api
-TAVILY_API_KEY=sua_chave_tavily
+GOOGLE_API_KEY=your_api_key
+TAVILY_API_KEY=your_tavily_key
 ```
 
-## Uso
+## Usage
 
-No terminal, execute:
+In the terminal, execute:
 
 ```bash
 langgraph dev
 ```
 
-O script:
+The script:
 
-- Usa `dotenv` para carregar variáveis de ambiente
-- Inicializa o modelo `gemini-2.5-flash`
-- Define a ferramenta `search_web` com Tavily
-- Cria um agente ReAct via `create_react_agent`
+- Uses `dotenv` to load environment variables
+- Initializes the `gemini-2.5-flash` model
+- Defines the `search_web` tool with Tavily
+- Creates a ReAct agent via `create_react_agent`
 
-## Atenção
+## Attention / Troubleshooting
 
-Alguns usuários relataram problemas com uso de windows.
-O problema foi resolvido através do comando.
+Some users reported issues when using Windows.
+The issue is usually resolved by running the command:
 ```bash
 langgraph dev --allow-blocking
 ```
 
-Lembresse que ao executar o agente será exibido em seu navegador padrão.
+Remember that upon execution, the agent (LangGraph Studio) will be displayed in your default browser.

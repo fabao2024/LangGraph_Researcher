@@ -1,0 +1,5 @@
+langchain-tavily
+langchain-google-genai
+langchain-community
+langgraph-cli[inmem]
+datamodel-code-generator

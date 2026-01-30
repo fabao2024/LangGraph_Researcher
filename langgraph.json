@@ -1,0 +1,6 @@
+{
+    "dependencies": ["."],
+    "graphs": {
+        "agent": "langgraph-101:graph"
+    }
+}

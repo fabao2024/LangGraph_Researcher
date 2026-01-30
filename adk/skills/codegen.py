@@ -7,13 +7,17 @@ from pathlib import Path
 def generate_pydantic_model(json_input: str, model_name: str = "GeneratedModel") -> str:
     """
     Generates a Pydantic model from a JSON string or dictionary.
+    Gera um modelo Pydantic a partir de uma string JSON ou dicionário.
     
     Args:
         json_input: A valid JSON string representing the data structure.
+                    Uma string JSON válida representando a estrutura de dados.
         model_name: The name of the root model class to generate.
+                    O nome da classe modelo raiz a ser gerada.
         
     Returns:
         A string containing the generated Python code with Pydantic models.
+        Uma string contendo o código Python gerado com modelos Pydantic.
     """
     try:
         # Validate JSON first
@@ -32,6 +36,6 @@ def generate_pydantic_model(json_input: str, model_name: str = "GeneratedModel")
         )
         return output
     except json.JSONDecodeError:
-        return "Error: Invalid JSON input."
+        return "Error: Invalid JSON input. / Erro: Entrada JSON inválida."
     except Exception as e:
-        return f"Error generating model: {str(e)}"
+        return f"Error generating model: {str(e)} / Erro ao gerar modelo: {str(e)}"

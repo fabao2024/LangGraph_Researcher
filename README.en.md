@@ -1,34 +1,59 @@
-# LangGraph Researcher 2026
-
 [Leia em Português](README.md)
 
 Repo for the LangGraph Researcher agent, equipped with ADK tools.
 
 ## ADK Skills Included
 
+This agent is equipped with an "Agent Development Kit" (ADK) that gives it specialized skills. These skills are Python tools that the agent can call to perform complex tasks.
+
 ### 1. Git Commit Formatter (`git.py`)
 Ensures version history is consistent and readable by enforcing **Conventional Commits**.
-- **Usage**: Invoke with parameters `type` (feat, fix, etc.), `scope`, `subject`, and optional `body`.
-- **Output**: Returns a formatted string like `feat(auth): add login endpoint`.
+- **What it does**: Formats commit messages following the `type(scope): description` standard.
+- **Example agent usage**: When you ask "create a commit message for the new login function", the agent calls this skill to generate the correct formatted string.
 
 ### 2. License Header Adder (`compliance.py`)
 Automates legal compliance by checking and adding license headers to source files.
-- **Usage**: Provide a `file_path`.
-- **Behavior**: Checks if the file exists and if it already has the standard copyright header. If missing, prepends the 2026 LangGraph Researcher MIT license header.
+- **What it does**: Inserts the MIT license header at the top of files if it doesn't already exist.
+- **Example agent usage**: If you ask "check the file licenses", the agent scans the files and uses this skill to apply the header where missing.
 
 ### 3. JSON to Pydantic (`codegen.py`)
 Accelerates development by generating typed Pydantic models from raw JSON verification.
-- **Usage**: Provide `json_input` (string or dict) and a `model_name`.
-- **Tech**: Uses `datamodel-code-generator` under the hood.
-- **Output**: Returns valid Python code defining the Pydantic models matching the input structure.
+- **What it does**: Converts a JSON object into Python Pydantic classes.
+- **Example agent usage**: Upon receiving a JSON from an API and asking "create the data model for this", the agent uses this skill to generate the corresponding Python code.
 
 ### 4. Database Schema Validator (`data.py`)
 Strengthens data governance by validating schema definitions against best practices.
-- **Usage**: Provide a `schema_definition` dict (with table name and columns).
-- **Checks**:
-    - **Primary Key**: Ensures the table has a primary key defined.
-    - **Naming Convention**: Validates that column names are in `snake_case`.
-- **Output**: A pass/fail report listing any violations found.
+- **What it does**: Checks if tables have primary keys and if columns follow the `snake_case` convention.
+- **Example agent usage**: When designing a database, the agent can use this skill to ensure the proposed schema follows best practices before generating SQL.
+
+## How to Customize the Agent
+
+In addition to the ADK skills, you can customize the agent's core behavior by editing `langgraph-101.py`.
+
+### 1. Changing the System Prompt
+The agent's personality and rules are defined in the **System Prompt** (variable `system_message` in code).
+- **Location**: `langgraph-101.py` (lines 25-37 approximately).
+- **How to modify**: Edit the text inside `SystemMessage(content="...")`. You can add new rules, change the tone, or instruct the agent to act as a specific persona.
+
+### 2. Configuring Web Search (`search_web`)
+The agent uses the `search_web` tool to find information online via **Tavily**.
+- **Location**: `langgraph-101.py` (function `search_web`).
+- **How to modify**:
+    - The tool is defined as a Python function decorated with `@tool`.
+    - Inside, it initializes `TavilySearch`. You can adjust parameters like `max_results` (to get more or fewer links) or `search_depth` (basic or advanced).
+    - The docstring (`"""Busca informações..."""`) helps the LLM decide **when** to call this tool. modifying this description can change how often or in what contexts the agent searches the web.
+
+## How Skills Work in LangGraph
+
+When you run the command `langgraph dev` (or `langgraph dev --allow-blocking`), the agent loads in **LangGraph Studio**, a visual interface in your browser.
+
+1.  **Chat Interface**: In LangGraph Studio, you interact with the agent via chat.
+2.  **Intent Detection**: When you make a request (e.g., "format this commit"), the AI model (Gemini) analyzes if it needs to use any tool to fulfill the request.
+3.  **Skill Execution**: If necessary, the agent "calls" the corresponding Python function (the skill) behind the scenes.
+4.  **Response**: The skill result (e.g., the formatted message or generated code) is returned to the agent, which then formulates the final response for you in the chat.
+
+**Flow Summary:**
+`User (Chat) -> Agent (Decision) -> Skill (Python Execution) -> Agent (Response)`
 
 ## How to Run
 
@@ -86,7 +111,7 @@ The script:
 
 - Uses `dotenv` to load environment variables
 - Initializes the `gemini-2.5-flash` model
-- Defines the `search_web` tool with Tavily
+- Defines the `search_web` tool and **ADK Skills**
 - Creates a ReAct agent via `create_react_agent`
 
 ## Attention / Troubleshooting

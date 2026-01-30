@@ -40,6 +40,23 @@ Quando você executa o comando `langgraph dev` (ou `langgraph dev --allow-blocki
 **Resumo do Fluxo:**
 `Usuário (Chat) -> Agente (Decisão) -> Skill (Execução Python) -> Agente (Resposta)`
 
+## Como Modificar o Agente
+
+Além das skills do ADK, você pode personalizar o comportamento central do agente editando o arquivo `langgraph-101.py`.
+
+### 1. Alterando o Prompt do Sistema (System Prompt)
+A personalidade e as regras do agente são definidas no **System Message** (variável `system_message` no código).
+- **Localização**: `langgraph-101.py` (linhas 25-37 aproximadamente).
+- **Como modificar**: Edite o texto dentro de `SystemMessage(content="...")`. Você pode adicionar novas regras, mudar o tom de voz ou instruir o agente a agir como uma persona específica.
+
+### 2. Configurando a Busca Web (`search_web`)
+O agente usa a ferramenta `search_web` para buscar informações online via **Tavily**.
+- **Localização**: `langgraph-101.py` (função `search_web`).
+- **Como modificar**:
+    - A ferramenta é definida como uma função Python decorada com `@tool`.
+    - Dentro dela, inicializa-se o `TavilySearch`. Você pode ajustar parâmetros como `max_results` (para ter mais ou menos links) ou `search_depth` (busca básica ou avançada).
+    - A docstring (`"""Busca informações..."""`) ajuda o LLM a decidir **quando** chamar esta ferramenta. Alterar esta descrição pode mudar a frequência ou contexto em que o agente busca na web.
+
 ## Como Executar
 
 1. Abra o terminal em `Langgraph_researcher_2026`.

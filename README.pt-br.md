@@ -6,29 +6,39 @@ Repositório para o agente LangGraph Researcher, equipado com ferramentas ADK.
 
 ## Habilidades ADK Incluídas
 
+Este agente está equipado com um "Agent Development Kit" (ADK) que lhe confere habilidades especializadas. Estas habilidades são ferramentas Python que o agente pode chamar para realizar tarefas complexas.
+
 ### 1. Formatador de Commit Git (`git.py`)
 Garante que o histórico de versões seja consistente e legível ao impor **Conventional Commits**.
-- **Uso**: Invoque com parâmetros `type` (feat, fix, etc.), `scope`, `subject`, e opcionalmente `body`.
-- **Saída**: Retorna uma string formatada como `feat(auth): adicionar endpoint de login`.
+- **O que faz**: Formata mensagens de commit seguindo o padrão `tipo(escopo): descrição`.
+- **Exemplo de uso pelo agente**: Quando você pede "crie uma mensagem de commit para a nova função de login", o agente chama esta skill para gerar a string formatada correta.
 
 ### 2. Adicionador de Cabeçalho de Licença (`compliance.py`)
 Automatiza a conformidade legal verificando e adicionando cabeçalhos de licença aos arquivos fonte.
-- **Uso**: Forneça um `file_path`.
-- **Comportamento**: Verifica se o arquivo existe e se já possui o cabeçalho de copyright padrão. Se faltar, adiciona o cabeçalho de licença MIT do LangGraph Researcher 2026 no início.
+- **O que faz**: Insere o cabeçalho de licença MIT no topo dos arquivos se ele ainda não existir.
+- **Exemplo de uso pelo agente**: Se você pedir "verifique as licenças dos arquivos", o agente varre os arquivos e usa esta skill para aplicar o cabeçalho onde estiver faltando.
 
 ### 3. JSON para Pydantic (`codegen.py`)
 Acelera o desenvolvimento gerando modelos Pydantic tipados a partir de JSON bruto.
-- **Uso**: Forneça `json_input` (string ou dict) e um `model_name`.
-- **Tecnologia**: Usa `datamodel-code-generator` internamente.
-- **Saída**: Retorna código Python válido definindo os modelos Pydantic que correspondem à estrutura de entrada.
+- **O que faz**: Converte um objeto JSON em classes Python Pydantic.
+- **Exemplo de uso pelo agente**: Ao receber um JSON de uma API e pedir "crie o modelo de dados para isso", o agente usa esta skill para gerar o código Python correspondente.
 
 ### 4. Validador de Schema de Banco de Dados (`data.py`)
 Fortalece a governança de dados validando definições de esquema contra melhores práticas.
-- **Uso**: Forneça um dicionário `schema_definition` (com nome da tabela e colunas).
-- **Verificações**:
-    - **Chave Primária**: Garante que a tabela tenha uma chave primária definida.
-    - **Convenção de Nomenclatura**: Valida se os nomes das colunas estão em `snake_case`.
-- **Saída**: Um relatório de aprovação/falha listando quaisquer violações encontradas.
+- **O que faz**: Verifica se tabelas têm chaves primárias e se colunas seguem a convenção `snake_case`.
+- **Exemplo de uso pelo agente**: Ao projetar um banco de dados, o agente pode usar esta skill para garantir que o esquema proposto segue as boas práticas antes de gerar o SQL.
+
+## Como as Skills Funcionam no LangGraph
+
+Quando você executa o comando `langgraph dev` (ou `langgraph dev --allow-blocking`), o agente é carregado no **LangGraph Studio**, uma interface visual no seu navegador.
+
+1.  **Interface de Chat**: No LangGraph Studio, você interage com o agente através de um chat.
+2.  **Detecção de Intenção**: Quando você faz um pedido (ex: "formate este commit"), o modelo de IA (Gemini) analisa se precisa usar alguma ferramenta para atender ao pedido.
+3.  **Execução da Skill**: Se necessário, o agente "chama" a função Python correspondente (a skill) nos bastidores.
+4.  **Resposta**: O resultado da skill (ex: a mensagem formatada ou o código gerado) é devolvido ao agente, que então formula a resposta final para você no chat.
+
+**Resumo do Fluxo:**
+`Usuário (Chat) -> Agente (Decisão) -> Skill (Execução Python) -> Agente (Resposta)`
 
 ## Como Executar
 
@@ -86,7 +96,7 @@ O script:
 
 - Usa `dotenv` para carregar variáveis de ambiente
 - Inicializa o modelo `gemini-2.5-flash`
-- Define a ferramenta `search_web` com Tavily
+- Define a ferramenta `search_web` e as **Skills ADK**
 - Cria um agente ReAct via `create_react_agent`
 
 ## Atenção / Solução de Problemas

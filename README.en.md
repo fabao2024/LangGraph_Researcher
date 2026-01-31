@@ -1,4 +1,12 @@
+# LangGraph Researcher 2026
+
 [Leia em Português](README.md)
+
+![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![LangGraph](https://img.shields.io/badge/LangGraph-vv0.2-1C2C33?style=for-the-badge&color=28a745)
+![LangChain](https://img.shields.io/badge/LangChain-v0.3-blueviolet?style=for-the-badge)
+![Gemini](https://img.shields.io/badge/Google%20Gemini-2.5%20Flash-8E75B2?style=for-the-badge&logo=google&logoColor=white&color=ff6d00)
+![Tavily](https://img.shields.io/badge/Tavily-Search%20API-FF0000?style=for-the-badge)
 
 Repo for the LangGraph Researcher agent, equipped with ADK tools.
 
@@ -26,6 +34,18 @@ Strengthens data governance by validating schema definitions against best practi
 - **What it does**: Checks if tables have primary keys and if columns follow the `snake_case` convention.
 - **Example agent usage**: When designing a database, the agent can use this skill to ensure the proposed schema follows best practices before generating SQL.
 
+## How Skills Work in LangGraph
+
+When you run the command `langgraph dev` (or `langgraph dev --allow-blocking`), the agent loads in **LangGraph Studio**, a visual interface in your browser.
+
+1.  **Chat Interface**: In LangGraph Studio, you interact with the agent via chat.
+2.  **Intent Detection**: When you make a request (e.g., "format this commit"), the AI model (Gemini) analyzes if it needs to use any tool to fulfill the request.
+3.  **Skill Execution**: If necessary, the agent "calls" the corresponding Python function (the skill) behind the scenes.
+4.  **Response**: The skill result (e.g., the formatted message or generated code) is returned to the agent, which then formulates the final response for you in the chat.
+
+**Flow Summary:**
+`User (Chat) -> Agent (Decision) -> Skill (Python Execution) -> Agent (Response)`
+
 ## How to Customize the Agent
 
 In addition to the ADK skills, you can customize the agent's core behavior by editing `langgraph-101.py`.
@@ -42,18 +62,6 @@ The agent uses the `search_web` tool to find information online via **Tavily**.
     - The tool is defined as a Python function decorated with `@tool`.
     - Inside, it initializes `TavilySearch`. You can adjust parameters like `max_results` (to get more or fewer links) or `search_depth` (basic or advanced).
     - The docstring (`"""Busca informações..."""`) helps the LLM decide **when** to call this tool. modifying this description can change how often or in what contexts the agent searches the web.
-
-## How Skills Work in LangGraph
-
-When you run the command `langgraph dev` (or `langgraph dev --allow-blocking`), the agent loads in **LangGraph Studio**, a visual interface in your browser.
-
-1.  **Chat Interface**: In LangGraph Studio, you interact with the agent via chat.
-2.  **Intent Detection**: When you make a request (e.g., "format this commit"), the AI model (Gemini) analyzes if it needs to use any tool to fulfill the request.
-3.  **Skill Execution**: If necessary, the agent "calls" the corresponding Python function (the skill) behind the scenes.
-4.  **Response**: The skill result (e.g., the formatted message or generated code) is returned to the agent, which then formulates the final response for you in the chat.
-
-**Flow Summary:**
-`User (Chat) -> Agent (Decision) -> Skill (Python Execution) -> Agent (Response)`
 
 ## How to Run
 

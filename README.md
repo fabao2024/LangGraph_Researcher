@@ -1,5 +1,12 @@
 # LangGraph Researcher 2026
 
+![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![LangGraph](https://img.shields.io/badge/LangGraph-vv0.2-1C2C33?style=for-the-badge&color=28a745)
+![LangChain](https://img.shields.io/badge/LangChain-v0.3-blueviolet?style=for-the-badge)
+![Gemini](https://img.shields.io/badge/Google%20Gemini-2.5%20Flash-8E75B2?style=for-the-badge&logo=google&logoColor=white&color=ff6d00)
+![Tavily](https://img.shields.io/badge/Tavily-Search%20API-FF0000?style=for-the-badge)
+
+
 [Read in English](README.en.md)
 
 Repositório para o agente LangGraph Researcher, equipado com ferramentas ADK.

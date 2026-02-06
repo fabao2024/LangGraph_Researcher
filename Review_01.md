@@ -449,19 +449,19 @@ O Studio estará disponível em http://localhost:8080.
 ## ✅ Checklist de Prioridades
 
 ### Imediato (antes de commitar no main)
-- [ ] Criar `adk/__init__.py`
-- [ ] Corrigir inconsistência de copyright em `compliance.py`
-- [ ] Atualizar nome do modelo Gemini
+- [x] Criar `adk/__init__.py`
+- [x] Corrigir inconsistência de copyright em `compliance.py`
+- [x] Atualizar nome do modelo Gemini
 
 ### Curto Prazo (próximo commit)
-- [ ] Adicionar `.langgraph_api/` ao `.gitignore`
-- [ ] Criar `.env.example`
-- [ ] Adicionar versionamento ao `requirements.txt`
+- [x] Adicionar `.langgraph_api/` ao `.gitignore`
+- [x] Criar `.env.example`
+- [x] Adicionar versionamento ao `requirements.txt`
 
 ### Médio Prazo (melhorias de qualidade)
-- [ ] Melhorar validação de schema com regex
-- [ ] Melhorar tratamento de erros
-- [ ] Criar `CHANGELOG.md`
+- [x] Melhorar validação de schema com regex
+- [x] Melhorar tratamento de erros
+- [x] Criar `CHANGELOG.md`
 - [x] Renomear `langgraph-101.py` para `langgraph_101.py`
 
 ### Longo Prazo (refinamento)

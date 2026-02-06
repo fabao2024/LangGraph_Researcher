@@ -1,7 +1,7 @@
 import os
 from ..core import skill
 
-LICENSE_HEADER = """# Copyright (c) 2026 Langgraph Researcher. All rights reserved.
+LICENSE_HEADER = """# Copyright (c) 2026 Fabio Pettian. All rights reserved.
 # Licensed under the MIT License.
 """
 

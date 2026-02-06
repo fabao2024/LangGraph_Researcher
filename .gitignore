@@ -16,6 +16,10 @@ pip-delete-this-directory.txt
 # macOS
 .DS_Store
 
+# LangGraph runtime files
+.langgraph_api/
+*.pckl
+
 # IDEs
 .vscode/
 .idea/

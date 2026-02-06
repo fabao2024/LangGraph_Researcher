@@ -1,3 +1,4 @@
+import re
 from ..core import skill
 from typing import List, Dict, Any
 
@@ -35,7 +36,7 @@ def validate_schema(schema_definition: Dict[str, Any], rules: List[str] = None) 
     # Basic Rule: Check for snake_case column names ( governance best practice)
     for col in columns:
         col_name = col.get('name', '')
-        if not col_name.islower() or ' ' in col_name:
+        if not re.match(r'^[a-z][a-z0-9_]*$', col_name):
              violations.append(f"Column '{col_name}' in table '{table_name}' should be snake_case. / Coluna '{col_name}' deve estar em snake_case.")
 
     if not violations:

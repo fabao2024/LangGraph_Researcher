@@ -1,5 +1,6 @@
-langchain-tavily
-langchain-google-genai
-langchain-community
-langgraph-cli[inmem]
-datamodel-code-generator
+langchain-tavily>=0.1.0,<1.0.0
+langchain-google-genai>=2.0.0,<3.0.0
+langchain-community>=0.3.0,<1.0.0
+langgraph-cli[inmem]>=0.2.0,<1.0.0
+datamodel-code-generator>=0.25.0,<1.0.0
+python-dotenv>=1.0.0

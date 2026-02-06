@@ -37,5 +37,7 @@ def generate_pydantic_model(json_input: str, model_name: str = "GeneratedModel")
         return output
     except json.JSONDecodeError:
         return "Error: Invalid JSON input. / Erro: Entrada JSON inválida."
+    except FileNotFoundError:
+        return "Error: JSON file not found. / Erro: Arquivo JSON não encontrado."
     except Exception as e:
-        return f"Error generating model: {str(e)} / Erro ao gerar modelo: {str(e)}"
+        return f"Error generating model ({type(e).__name__}): {str(e)} / Erro ao gerar modelo: {str(e)}"

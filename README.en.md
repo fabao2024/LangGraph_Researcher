@@ -131,3 +131,22 @@ langgraph dev --allow-blocking
 ```
 
 Remember that upon execution, the agent (LangGraph Studio) will be displayed in your default browser.
+
+## Advanced Configuration
+
+To configure the port and host for LangGraph Studio, use environment variables:
+
+```bash
+export LANGGRAPH_PORT=8080
+export LANGGRAPH_HOST=0.0.0.0
+langgraph dev
+```
+
+The Studio will be available at `http://localhost:8080`.
+
+On Windows (PowerShell):
+```powershell
+$env:LANGGRAPH_PORT = "8080"
+$env:LANGGRAPH_HOST = "0.0.0.0"
+langgraph dev --allow-blocking
+```

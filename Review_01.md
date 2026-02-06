@@ -465,10 +465,10 @@ O Studio estará disponível em http://localhost:8080.
 - [x] Renomear `langgraph-101.py` para `langgraph_101.py`
 
 ### Longo Prazo (refinamento)
-- [ ] Adicionar type hints completos
-- [ ] Expandir testes de verificação
-- [ ] Adicionar versão da API no `langgraph.json`
-- [ ] Melhorar documentação
+- [x] Adicionar type hints completos
+- [x] Expandir testes de verificação
+- [x] Adicionar versão da API no `langgraph.json`
+- [x] Melhorar documentação
 
 ---
 

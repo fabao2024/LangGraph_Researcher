@@ -1,3 +1,6 @@
+# Copyright (c) 2026 Langgraph Researcher. All rights reserved.
+# Licensed under the MIT License.
+
 from adk.skills import (
     format_commit_message, 
     add_license_header, 

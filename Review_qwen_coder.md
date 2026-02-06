@@ -169,3 +169,62 @@ except Exception as e:
 
 ### Applied Fixes (commit 202bfbe)
 All 9 issues were resolved and pushed to main. The Review_01.md checklist was updated to mark all items as done.
+
+---
+
+## Review 4: Long-term Improvements (Issues #11-#15)
+
+### Prompt
+Provide EXACT code for 5 remaining improvements: type hints, module docstrings, negative tests, API version in langgraph.json, and advanced config docs.
+
+### qwen2.5-coder Response
+
+**Issue 11 — Type hints for `core.py`:**
+```python
+from langchain_core.tools import tool as langchain_tool
+from functools import wraps
+from typing import Callable, Any
+
+def skill(name_or_func: Callable[[Any], Any] = None, description: str = None) -> Callable[[Callable[[Any], Any]], Callable[[Any], Any]]:
+    if callable(name_or_func):
+        func = name_or_func
+        t = langchain_tool(func)
+        return t
+    name = name_or_func
+    def decorator(func: Callable[[Any], Any]) -> Callable[[Any], Any]:
+        t = langchain_tool(name or func.__name__, description=description)(func)
+        return t
+    return decorator
+```
+
+**Issue 12 — Module docstring for `core.py`:**
+```python
+"""
+Core functionality for LangGraph Researcher project.
+This module contains decorators and tools to enhance language-related functionalities.
+"""
+```
+
+**Issue 13 — Negative test cases:**
+qwen2.5-coder suggested using `unittest` framework with test cases for:
+- `format_commit_message` with invalid type
+- `add_license_header` with nonexistent file
+- `generate_pydantic_model` with invalid JSON
+- `validate_schema` with empty schema
+
+**Issue 14 — API version in `langgraph.json`:**
+```json
+{
+    "dependencies": ["."],
+    "graphs": {
+        "agent": "langgraph_101:graph"
+    },
+    "langgraph_version": "0.2.x"
+}
+```
+
+**Issue 15 — Advanced configuration docs:**
+Add section to README documenting `LANGGRAPH_PORT` and `LANGGRAPH_HOST` environment variables for configuring LangGraph Studio port and host.
+
+### Applied Fixes (commit 7987df1)
+All 5 long-term improvements were resolved and pushed to main. The full Review_01.md checklist is now complete (15/15 items done).

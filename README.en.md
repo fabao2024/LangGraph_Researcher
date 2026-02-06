@@ -48,16 +48,16 @@ When you run the command `langgraph dev` (or `langgraph dev --allow-blocking`), 
 
 ## How to Customize the Agent
 
-In addition to the ADK skills, you can customize the agent's core behavior by editing `langgraph-101.py`.
+In addition to the ADK skills, you can customize the agent's core behavior by editing `langgraph_101.py`.
 
 ### 1. Changing the System Prompt
 The agent's personality and rules are defined in the **System Prompt** (variable `system_message` in code).
-- **Location**: `langgraph-101.py` (lines 25-37 approximately).
+- **Location**: `langgraph_101.py` (lines 25-37 approximately).
 - **How to modify**: Edit the text inside `SystemMessage(content="...")`. You can add new rules, change the tone, or instruct the agent to act as a specific persona.
 
 ### 2. Configuring Web Search (`search_web`)
 The agent uses the `search_web` tool to find information online via **Tavily**.
-- **Location**: `langgraph-101.py` (function `search_web`).
+- **Location**: `langgraph_101.py` (function `search_web`).
 - **How to modify**:
     - The tool is defined as a Python function decorated with `@tool`.
     - Inside, it initializes `TavilySearch`. You can adjust parameters like `max_results` (to get more or fewer links) or `search_depth` (basic or advanced).

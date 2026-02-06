@@ -75,7 +75,7 @@ Prioridade: 🔴 Alta
 
 3. ⚠️ Nome do Modelo Gemini Incorreto
 
-Localização: langgraph-101.py:18
+Localização: langgraph_101.py:18
 
 Descrição:
 O código usa model="gemini-2.5-flash", mas este modelo não existe na API do Google na data atual (2024/2025). Os modelos disponíveis são tipicamente:
@@ -282,14 +282,14 @@ Prioridade: 🟡 Baixa
 
 10. ⚠️ Nome de Arquivo com Hífen
 
-Localização: langgraph-101.py
+Localização: langgraph_101.py (corrigido)
 
 Descrição:
-O arquivo principal usa hífen (langgraph-101.py) em vez de underscore (langgraph_101.py), o que dificulta imports em Python.
+O arquivo principal usava hífen (langgraph-101.py) e foi renomeado para langgraph_101.py, seguindo a convenção Python.
 
 Impacto:
 
-• Não pode ser importado com import langgraph-101 (sintaxe inválida)
+• Não podia ser importado com import langgraph-101 (sintaxe inválida) - CORRIGIDO
 • Precisa usar importlib para importação dinâmica
 • Viola PEP 8 para nomes de módulos
 Solução:
@@ -462,7 +462,7 @@ O Studio estará disponível em http://localhost:8080.
 - [ ] Melhorar validação de schema com regex
 - [ ] Melhorar tratamento de erros
 - [ ] Criar `CHANGELOG.md`
-- [ ] Renomear `langgraph-101.py` para `langgraph_101.py`
+- [x] Renomear `langgraph-101.py` para `langgraph_101.py`
 
 ### Longo Prazo (refinamento)
 - [ ] Adicionar type hints completos
